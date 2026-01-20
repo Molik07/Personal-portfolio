@@ -207,14 +207,27 @@ body {
     justify-content: center;
     text-align: center;
     padding: 120px 24px 60px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1;
+    will-change: transform, opacity;
 }
 
 .hero-content {
     max-width: 800px;
     position: relative;
     z-index: 1;
+    will-change: transform, opacity;
+    transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+/* Spacer to push content below the fixed hero */
+.hero-spacer {
+    height: 100vh;
+    position: relative;
+    z-index: 0;
 }
 
 .hero-greeting {
@@ -359,6 +372,8 @@ body {
     font-size: 0.75rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    will-change: opacity;
+    transition: opacity 0.3s ease-out;
 }
 
 .mouse {
@@ -397,6 +412,28 @@ section {
     padding: 120px 0;
     position: relative;
     z-index: 1;
+}
+
+/* Content sections that scroll over the hero */
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    background: var(--bg-primary);
+    margin-top: 0;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, var(--bg-primary));
+    pointer-events: none;
+    z-index: 1;
+    transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .section-title {
@@ -829,4 +866,14 @@ section {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-primary);
+}
+
+/* ===== Hero Scroll Animation Enhancements ===== */
+.hero {
+    transform-origin: center center;
+    will-change: filter;
+}
+
+.content-wrapper section:first-child {
+    padding-top: 80px;
 }

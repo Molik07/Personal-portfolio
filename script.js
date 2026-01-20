@@ -435,21 +435,58 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ===== Parallax Effect for Hero =====
+// ===== Parallax Effect for Hero (Bettina Sosa Style) =====
 const heroContent = document.querySelector('.hero-content');
+const heroSection = document.querySelector('.hero');
+const scrollIndicator = document.querySelector('.scroll-indicator');
 
-window.addEventListener('scroll', () => {
+function updateHeroScroll() {
     const scrolled = window.pageYOffset;
-    const heroHeight = document.querySelector('.hero').offsetHeight;
+    const windowHeight = window.innerHeight;
     
-    if (scrolled < heroHeight) {
-        const opacity = 1 - (scrolled / heroHeight) * 1.5;
-        const translateY = scrolled * 0.3;
+    // Calculate scroll progress (0 to 1) based on how far user has scrolled through the viewport
+    const scrollProgress = Math.min(scrolled / (windowHeight * 0.7), 1);
+    
+    // Apply transformations to hero content
+    if (heroContent) {
+        // Scale down from 1 to 0.85
+        const scale = 1 - (scrollProgress * 0.15);
+        // Move up as user scrolls
+        const translateY = scrollProgress * -80;
+        // Fade out
+        const opacity = 1 - (scrollProgress * 1.2);
         
+        heroContent.style.transform = `translateY(${translateY}px) scale(${scale})`;
         heroContent.style.opacity = Math.max(0, opacity);
-        heroContent.style.transform = `translateY(${translateY}px)`;
+    }
+    
+    // Fade out scroll indicator faster
+    if (scrollIndicator) {
+        const indicatorOpacity = 1 - (scrollProgress * 3);
+        scrollIndicator.style.opacity = Math.max(0, indicatorOpacity);
+    }
+    
+    // Slightly blur and darken hero section as content scrolls over
+    if (heroSection) {
+        const blur = scrollProgress * 5;
+        heroSection.style.filter = `blur(${blur}px)`;
+    }
+}
+
+// Throttle scroll handler for performance
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        requestAnimationFrame(() => {
+            updateHeroScroll();
+            ticking = false;
+        });
+        ticking = true;
     }
 });
+
+// Initial call
+updateHeroScroll();
 
 // ===== Console Easter Egg =====
 console.log('%cHello, curious developer!', 'font-size: 24px; font-weight: bold;');
