@@ -536,6 +536,108 @@ section {
     box-shadow: var(--card-shadow);
 }
 
+/* ===== Qualifications Section ===== */
+.qualifications {
+    background-color: transparent;
+}
+
+.timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 40px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 48px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -40px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--bg-primary);
+    box-shadow: 0 0 0 2px var(--accent);
+    z-index: 1;
+    transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.timeline-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px 32px;
+    transition: transform var(--transition), box-shadow var(--transition), background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-content:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow);
+}
+
+.timeline-date {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.timeline-content h3 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.timeline-school {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary) !important;
+    margin-bottom: 8px;
+}
+
+.timeline-content p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 32px;
+    }
+    
+    .timeline-dot {
+        left: -32px;
+    }
+    
+    .timeline-content {
+        padding: 22px 24px;
+    }
+}
+
 /* ===== Projects Section ===== */
 .projects {
     background-color: transparent;

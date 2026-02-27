@@ -292,8 +292,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe sections and cards
-document.querySelectorAll('section, .project-card, .skill-item').forEach(el => {
+// Observe sections, cards, and timeline items
+document.querySelectorAll('section, .project-card, .skill-item, .timeline-item').forEach(el => {
     observer.observe(el);
 });
 
@@ -311,7 +311,7 @@ function validateForm() {
             if (!input.value.trim()) {
                 group.classList.add('error');
                 isValid = false;
-            } else if (input.type === 'email' && !isValidEmail(input.value)) {
+            } else if (input.id === 'email' && !isValidContact(input.value)) {
                 group.classList.add('error');
                 isValid = false;
             } else {
@@ -323,8 +323,10 @@ function validateForm() {
     return isValid;
 }
 
-function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+function isValidContact(value) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^[+]?[\d\s\-()]{7,15}$/;
+    return emailPattern.test(value) || phonePattern.test(value);
 }
 
 // Clear error on input
@@ -393,13 +395,13 @@ contactForm.addEventListener('submit', async (e) => {
 // ===== Add CSS for Animation =====
 const style = document.createElement('style');
 style.textContent = `
-    section, .project-card, .skill-item {
+    section, .project-card, .skill-item, .timeline-item {
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     }
     
-    section.animate-in, .project-card.animate-in, .skill-item.animate-in {
+    section.animate-in, .project-card.animate-in, .skill-item.animate-in, .timeline-item.animate-in {
         opacity: 1;
         transform: translateY(0);
     }
